@@ -3,7 +3,6 @@
 
 import random, datetime
 from datetime import date, time
-from colorama import Fore, Back, Style
 
 print('\n' + ' _ (╭ರ‿⊙)' * 8 + """\n\nHello I am your virtual assistant. I am designed to give you random
 choices about where to eat or what type of music to listen to. Let's begin.\n""")
@@ -11,6 +10,9 @@ input('Press enter to continue...')
 
 
 def lunch():
+    
+    #Lists defined
+
     restaurants = ['Jimmy Johns', 'Big Guys', 'Subway', 'Carls Jr.',
                    'Burger King', 'Mc Donalds', 'Arbys', 'The taco truck']
 
@@ -79,6 +81,7 @@ def lunch():
                     actualDestination.append(place)
                     correct_answer = True
                     final_answer = True
+                    print('\n' + ' _ (ﾉ^ヮ^)ﾉ*:・ﾟ✧' * 4 + '\n\nNice choice!\n\n')
                     break
                 elif restaurantAnswer.lower() == 'no' or restaurantAnswer.lower() == 'n':                
                     print('\n' + random.choice(noResponses) + '\n')
@@ -95,20 +98,33 @@ def lunch():
                 print('\n' + (' _ ╭∩╮(︶︿︶)╭∩╮' * 5) + '\n\nWell good luck choosing a place without me.\n')
                 mysteryDestination = 'who the fuck knows'
                 input('Enter to continue...')
-                
-            
-        print('\n' + ' _ (ﾉ^ヮ^)ﾉ*:・ﾟ✧' * 4 + '\n\nWith that out of the way, lets move on to the drivers!\n')
-        print('\nSo far our drivers list is ' + str(len(drivers)) + ' long.\n')
+        
+        # Assumes a driver needs to be picked based on the day of the week. To be used to determine if the driver picking loop needs to be used.       
 
-        # TODO: Not allow a input greater than the length of the driver list
+        while True:  
+            if  todays_int < 5:
+                driver_assumption = 'do'
+            else:
+                driver_assumption = 'do not'        
+            drivers_needed = input('Since today is ' + todays_cal.strftime('%A') + '. I am going to that assume you ' + driver_assumption + " need help deciding who's driving.\n\nIs this correct?\n(yes or no)")
+            if drivers_needed.lower() == 'yes' or drivers_needed.lower() == 'y':
+                drivers_needed = True
+                break
+            elif drivers_needed.lower() == 'no' or drivers_needed.lower() == 'n':
+                driver_needed = False
+                break
+            else:
+                print('Please try that again.')
+                continue
+        # TODO: Not allow an input greater than the length of the driver list
         
         while True:
-            print('How many drivers are needed today?\n\n')
-            numOfdrivers = input()
+            print('\nSo far our VDC drivers list is ' + str(len(drivers)) + ' long.\n')
+            numOfdrivers = input('How many drivers are needed today?\n\n')
             if numOfdrivers.isdecimal():
-                    break
-                    print('Test')
-            print('Input must be a number')
+                break                    
+            else:
+                print('Input must be a number')
                     
 
         while int(numOfdrivers) > len(actualDrivers):
